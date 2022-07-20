@@ -33,10 +33,6 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CoverType obj)
         {
-            if (obj.Name == null)
-            {
-                ModelState.AddModelError("name", "The cover type cannot be empty");
-            }
             if (ModelState.IsValid)
             {
                 _unitOfWork.CoverType.Add(obj);
@@ -53,7 +49,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var coverTypeFromDb = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Name == "id");
+            var coverTypeFromDb = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
             if (coverTypeFromDb == null)
             {
                 return NotFound();
@@ -66,10 +62,6 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(CoverType obj)
         {
-            if (obj.Name == null)
-            {
-                ModelState.AddModelError("name", "The cover type cannot be empty");
-            }
             if (ModelState.IsValid)
             {
                 _unitOfWork.CoverType.Update(obj);
@@ -107,7 +99,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             }
             _unitOfWork.CoverType.Remove(obj);
             _unitOfWork.Save();
-            TempData["success"] = "Category deleted successfully";
+            TempData["success"] = "Cover Type deleted successfully";
             return RedirectToAction("Index");
 
         }

@@ -53,7 +53,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDb = _unitOfWork.Category.GetFirstOrDefault(u => u.Name == "id");
+            var categoryFromDb = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
